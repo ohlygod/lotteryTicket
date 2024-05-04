@@ -1,0 +1,14 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lottery.lottery.mapper.SsqMapper">
+    <select id="selectRedByNumber" resultType="cn.lottery.lottery.entity.Ssq">
+        select *
+        from ssq
+        where red1 = #{number} or red2 = #{number} or red3 = #{number} or red4 = #{number} or red5 = #{number} or red6 = #{number}
+    </select>
+    <select id="selectBlueByNumber" resultType="cn.lottery.lottery.entity.Ssq">
+        select *
+        from ssq
+        where blue1 = #{number}
+    </select>
+</mapper>

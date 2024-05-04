@@ -1,0 +1,43 @@
+@font-face {
+    font-family: 'din';
+    src: url('../otf/DIN.otf');
+}
+
+#container {
+    text-align: center;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.d {
+    font-family: 微软雅黑, serif;
+    font-weight: bolder;
+    font-size: 60px;
+    background-image: linear-gradient(45deg, #e220f8 0%, #f68522 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.red {
+    font-family: din, serif;
+    font-size: 65px;
+    font-weight: bolder;
+    width: 120px;
+    height: 100px;
+    background-image: linear-gradient(147deg, #ff3b89 0%, #FF2525 74%);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.blue {
+    font-family: din, serif;
+    font-size: 65px;
+    font-weight: bolder;
+    width: 120px;
+    height: 100px;
+    background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+}

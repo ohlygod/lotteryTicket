@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+          name="viewport"/>
+    <title>公益彩票</title>
+    <link th:href="@{/css/index.css}" rel="stylesheet">
+</head>
+<body>
+<div id="container">
+    <div style="margin-top: 50px; height: 25px;width: 800px">
+        <div style="display:flex;flex-direction: row;justify-content:center" v-show="ssq !== ''">
+            <div class="issue">双色球第{{ ssq.id }}期：</div>
+            <div class="red">{{ ssq.red1 }}</div>
+            <div class="red">{{ ssq.red2 }}</div>
+            <div class="red">{{ ssq.red3 }}</div>
+            <div class="red">{{ ssq.red4 }}</div>
+            <div class="red">{{ ssq.red5 }}</div>
+            <div class="red">{{ ssq.red6 }}</div>
+            <div class="blue">{{ ssq.blue1 }}</div>
+        </div>
+    </div>
+    <div style="margin-top: 30px; height: 25px;width: 800px">
+        <div style="display:flex;flex-direction: row;justify-content:center" v-show="dlt !== ''">
+            <div class="issue">大乐透第{{ dlt.id }}期：</div>
+            <div class="red">{{ dlt.red1 }}</div>
+            <div class="red">{{ dlt.red2 }}</div>
+            <div class="red">{{ dlt.red3 }}</div>
+            <div class="red">{{ dlt.red4 }}</div>
+            <div class="red">{{ dlt.red5 }}</div>
+            <div class="blue">{{ dlt.blue1 }}</div>
+            <div class="blue">{{ dlt.blue2 }}</div>
+        </div>
+    </div>
+    <button class="light-btn" style="margin-top: 100px" v-on:click="combine('ssq')">双色球</button>
+    <button class="light-btn" style="margin-top: 30px" v-on:click="combine('dlt')">大乐透</button>
+    <button class="light-btn" style="margin-top: 30px" v-on:click="combine('')">双色球&大乐透</button>
+</div>
+<script th:src="@{/js/vue.min.js}"></script>
+<script th:src="@{/js/axios.min.js}"></script>
+<script>
+    new Vue({
+        el: "#container",
+        data: {
+            ssq: '',
+            dlt: '',
+        },
+        methods: {
+            getNewest: function () {
+                axios({
+                    method: "GET",
+                    url: "getNewest",
+                }).then((res) => {
+                    this.ssq = res.data.ssq;
+                    this.dlt = res.data.dlt;
+                });
+            },
+            combine: function (type) {
+                window.location.href += "combine?type=" + type;
+            },
+        },
+        created() {
+            this.getNewest();
+        },
+    });
+</script>
+</body>
+</html>

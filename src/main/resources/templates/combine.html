@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <title>公益彩票</title>
+    <link th:href="@{/css/combine.css}" rel="stylesheet">
+    <style>
+        [v-clock] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div style="margin-top: 100px;width: 800px" v-clock v-if="ssqList.length !== 0">
+        <p class="d">双色球</p>
+        <div style="display: flex;flex-direction: row;justify-content: center" v-for="list of ssqList">
+            <div class="red">{{list.red1}}</div>
+            <div class="red">{{list.red2}}</div>
+            <div class="red">{{list.red3}}</div>
+            <div class="red">{{list.red4}}</div>
+            <div class="red">{{list.red5}}</div>
+            <div class="red">{{list.red6}}</div>
+            <div class="blue">{{list.blue1}}</div>
+        </div>
+    </div>
+    <div style="padding-top: 100px;width: 800px" v-clock v-if="dltList.length !== 0">
+        <p class="d">大乐透</p>
+        <div style="display: flex;flex-direction: row;justify-content:center" v-for="list of dltList">
+            <div class="red">{{list.red1}}</div>
+            <div class="red">{{list.red2}}</div>
+            <div class="red">{{list.red3}}</div>
+            <div class="red">{{list.red4}}</div>
+            <div class="red">{{list.red5}}</div>
+            <div class="blue">{{list.blue1}}</div>
+            <div class="blue">{{list.blue2}}</div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/vue.min.js}"></script>
+<script th:src="@{/js/axios.min.js}"></script>
+<script th:inline="javascript">
+    new Vue({
+        el: "#container",
+        data: {
+            ssqList: [],
+            dltList: []
+        },
+        methods: {
+            getSsq: function () {
+                axios({
+                    method: "GET",
+                    url: "getSsq",
+                }).then(res => {
+                    this.ssqList = res.data.ssqList;
+                });
+            },
+            getDlt: function () {
+                axios({
+                    method: "GET",
+                    url: "getDlt",
+                }).then(res => {
+                    this.dltList = res.data.dltList;
+                });
+            },
+            getLottery: function () {
+                axios({
+                    method: "GET",
+                    url: "getLottery",
+                }).then(res => {
+                    this.ssqList = res.data.ssq.ssqList;
+                    this.dltList = res.data.dlt.dltList;
+                });
+            },
+        },
+        mounted: function mounted() {
+            let type = [[${type}]];
+            if (type === 'ssq') {
+                this.getSsq();
+            } else if (type === 'dlt') {
+                this.getDlt();
+            } else {
+                this.getLottery();
+            }
+        }
+    });
+</script>
+</body>
+</html>
